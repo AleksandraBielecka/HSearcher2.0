@@ -1,0 +1,24 @@
+﻿<Window x:Class="HSearcher2._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HSearcher2._0"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="160" Width="360">
+    <Grid Background ="DarkGray">
+        <Border Padding="20">
+            <StackPanel>
+                <TextBlock x:Name="lb_choose" Text="Szpitalna baza danych" FontWeight="Bold" Height="50" FontSize="30" ></TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btn_Pacjenci" Click="btn_Pacjenci_Click" Margin="0 0 10 0" Grid.Column="0" Content="Pacjenci"/>
+                    <Button x:Name="btn_Pracownicy" Click="btn_Pracownicy_Click" Margin="10 0 0 0" Grid.Column="1" Content="Pracownicy" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
