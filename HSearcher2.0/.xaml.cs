@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
 
 namespace HSearcher2._0
 {
@@ -35,6 +36,7 @@ namespace HSearcher2._0
             PhysiciansList();
             lbl_Status.Foreground = Brushes.Black;
             lbl_Status.Content = "Wyszukaj pacjenta lub dodaj nowego";
+         
         }
         #endregion
 
@@ -48,6 +50,7 @@ namespace HSearcher2._0
             tb_Email.Text = "";
             cb_PhysiciansList.SelectedIndex = 0;
             tb_Diagnosis.Text = "";
+            dp_Date.Text = "";
             cb_Search.SelectedIndex = 0;
             btn_SaveChanges.Visibility = Visibility.Hidden;
             lbl_Status.Foreground = Brushes.Black;
@@ -64,7 +67,7 @@ namespace HSearcher2._0
                 using (SqlConnection con = new SqlConnection(CS))
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("Select top 1 ID, FirstName, LastName, Address, Telephone, Department, Email, Physician, Diagnosis from tblPatients  WHERE LastName = '" + cb_Search.SelectedValue.ToString() + "'", con);
+                    SqlCommand cmd = new SqlCommand("Select top 1 ID, FirstName, LastName, Address, Telephone, Department, Email, Physician, Diagnosis, Date from tblPatients  WHERE LastName = '" + cb_Search.SelectedValue.ToString() + "'", con);
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
                         while (rdr.Read())
@@ -85,6 +88,7 @@ namespace HSearcher2._0
                             tb_Email.Text = Email;
                             cb_PhysiciansList.Text = Physician;
                             tb_Diagnosis.Text = Diagnosis;
+                            dp_Date.Text = Convert.ToString(rdr["Date"]);
                             _currentEmployeeId = Convert.ToInt32(rdr["ID"]);
                             IsLoaded = true;
                         }
@@ -98,7 +102,7 @@ namespace HSearcher2._0
                     btn_SaveChanges.Content = "Zaktualizuj";
                     btn_SaveChanges.Visibility = Visibility.Visible;
                     btn_Delete.IsEnabled = true;
-                    if(cb_PhysiciansList.Text == " ")
+                    if (cb_PhysiciansList.Text == " ")
                     {
                         PhysiciansDepartmentNameList();
                     }
@@ -117,10 +121,18 @@ namespace HSearcher2._0
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
+
+            DateTime.TryParseExact(dp_Date.Text, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime dateof);
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
             {
-                SqlCommand cmd = new SqlCommand("UPDATE tblPatients SET FirstName = '" + tb_FirstName.Text + "', LastName = '" + tb_LastName.Text + "', Address = '" + tb_Address.Text + "', Telephone = '" + tb_Telephone.Text + "', Department = '" + cb_Department.Text + "', Email = '" + tb_Email.Text + "', Physician = '" + cb_PhysiciansList.Text + "', Diagnosis = '" + tb_Diagnosis.Text + "' WHERE ID = " + _currentEmployeeId.ToString(), con);
+                SqlCommand cmd = new SqlCommand("UPDATE tblPatients SET FirstName = '" + tb_FirstName.Text
+                    + "', LastName = '" + tb_LastName.Text + "', Address = '"
+                    + tb_Address.Text + "', Telephone = '" + tb_Telephone.Text
+                    + "', Department = '" + cb_Department.Text + "', Email = '"
+                    + tb_Email.Text + "', Physician = '" + cb_PhysiciansList.Text
+                    + "', Diagnosis = '" + tb_Diagnosis.Text + "', Date = '"
+                    + dateof.ToString("yyyy-MM-dd") + "' WHERE ID = " + _currentEmployeeId.ToString(), con);
                 con.Open();
                 int TotalRowsAffected = cmd.ExecuteNonQuery();
 
@@ -257,59 +269,53 @@ namespace HSearcher2._0
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (tb_FirstName.Text != null && tb_LastName.Text != null)
+            string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
+            using (SqlConnection con = new SqlConnection(CS))
             {
-                string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
-                using (SqlConnection con = new SqlConnection(CS))
+                SqlCommand cmd = new SqlCommand("procPatientsInsert", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@FirstName", tb_FirstName.Text);
+                cmd.Parameters.AddWithValue("@LastName", tb_LastName.Text);
+                cmd.Parameters.AddWithValue("@Address", tb_Address.Text);
+                cmd.Parameters.AddWithValue("@Telephone", tb_Telephone.Text);
+                cmd.Parameters.AddWithValue("@Department", cb_Department.Text);
+                cmd.Parameters.AddWithValue("@Email", tb_Email.Text);
+                cmd.Parameters.AddWithValue("@Physician", cb_PhysiciansList.Text);
+                cmd.Parameters.AddWithValue("@Diagnosis", tb_Diagnosis.Text);
+                cmd.Parameters.AddWithValue("@Date", dp_Date.Text);
+                
+                con.Open();
+                cmd.ExecuteNonQuery();
+                lbl_Status.Content = "Dodano nowego pacjenta";
+                lbl_Status.Foreground = Brushes.Green;
+                LastNameList();
+
+            }
+        }
+
+            private void Department_LostFocus(object sender, RoutedEventArgs e)
+            {
+                if (cb_Department.SelectedIndex != 0)
                 {
-                    SqlCommand cmd = new SqlCommand("procPatientsInsert", con);
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@FirstName", tb_FirstName.Text);
-                    cmd.Parameters.AddWithValue("@LastName", tb_LastName.Text);
-                    cmd.Parameters.AddWithValue("@Address", tb_Address.Text);
-                    cmd.Parameters.AddWithValue("@Telephone", tb_Telephone.Text);
-                    cmd.Parameters.AddWithValue("@Department", cb_Department.Text);
-                    cmd.Parameters.AddWithValue("@Email", tb_Email.Text);
-                    cmd.Parameters.AddWithValue("@Physician", cb_PhysiciansList.Text);
-                    cmd.Parameters.AddWithValue("@Diagnosis", tb_Diagnosis.Text);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    lbl_Status.Content = "Dodano nowego pacjenta";
-                    lbl_Status.Foreground = Brushes.Green;
-                    LastNameList();
+                    PhysiciansDepartmentNameList();
+                }
+                else
+                {
+                    PhysiciansList();
                 }
             }
-            else
-            {
-                lbl_Status.Content = "Proszę wpisać imię i nazwisko pacjenta";
-                lbl_Status.Foreground = Brushes.Green;
-            }
-        }
 
-        private void Department_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (cb_Department.SelectedIndex != 0)
+            private void BackToMainWindow_Click(object sender, RoutedEventArgs e)
             {
-                PhysiciansDepartmentNameList();
+                MainWindow MainWindow = new MainWindow();
+                MainWindow.Show();
+                this.Close();
             }
-            else
+
+            private void Clear_Click(object sender, RoutedEventArgs e)
             {
-                PhysiciansList();
+                ClearTextBoxes();
             }
-        }
-
-        private void BackToMainWindow_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow MainWindow = new MainWindow();
-            MainWindow.Show();
-            this.Close();
-        }
-
-        private void Clear_Click(object sender, RoutedEventArgs e)
-        {
-            ClearTextBoxes();
         }
     }
-}

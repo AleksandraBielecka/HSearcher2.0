@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HSearcher2._0"
         mc:Ignorable="d"
-        Title="Window1" Height="480" Width="400">
+        Title="Window1" Height="510" Width="400">
     <Grid Background ="DarkGray">
         <Border Padding="10">
             <StackPanel>
@@ -47,9 +47,9 @@
                         <Label x:Name="lbl_Department" Margin="0 5" Content="Oddział" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                         <Label x:Name="lbl_Email" Margin="0 5"  Content="Email" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                         <Label x:Name="lbl_Physician" Margin="0 5" Content="Lekarz" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
-                        <Label x:Name="lbl_Diagnosis" Margin="0 5 0 10" Content="Diagnoza" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
+                        <Label x:Name="lbl_Diagnosis" Margin="0 5" Content="Diagnoza" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
+                        <Label x:Name="lbl_Date" Margin="0 5 0 10" Content="Data przyjęcia" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                     </StackPanel>
-
                     <!--Column2-->
                     <StackPanel Grid.Column="1">
                         <TextBox x:Name="tb_FirstName" Margin="0 5" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" Height="23" />
@@ -60,6 +60,7 @@
                         <TextBox x:Name="tb_Email" Margin="0 5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <ComboBox x:Name="cb_PhysiciansList" Margin="0 5" HorizontalAlignment="Left" Height="23" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <TextBox x:Name="tb_Diagnosis" Margin="0 5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
+                        <DatePicker x:Name="dp_Date" Margin="0 5" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="182"/>
                     </StackPanel>
                 </Grid>
                 <Grid>
