@@ -15,8 +15,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btn_Pacjenci" Click="btn_Pacjenci_Click" Margin="0 0 10 0" Grid.Column="0" Content="Pacjenci"/>
-                    <Button x:Name="btn_Pracownicy" Click="btn_Pracownicy_Click" Margin="10 0 0 0" Grid.Column="1" Content="Pracownicy" />
+                    <Button x:Name="btn_Pacjenci" Click="Patients_Click" Margin="0 0 10 0" Grid.Column="0" Content="Pacjenci"/>
+                    <Button x:Name="btn_Pracownicy" Click="Employees_Click" Margin="10 0 0 0" Grid.Column="1" Content="Pracownicy" />
                 </Grid>
             </StackPanel>
         </Border>

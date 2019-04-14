@@ -5,21 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HSearcher2._0"
         mc:Ignorable="d"
-        Title="Window1" Height="460" Width="400">
+        Title="Window1" Height="480" Width="400">
     <Grid Background ="DarkGray">
         <Border Padding="10">
             <StackPanel>
-                <TextBlock x:Name="lb_choose" Text="Pacjenci" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BackToMainWindow" Content="Wstecz" Click="BackToMainWindow_Click" Grid.Column="0" Margin="0 5 10 10"/>
+                    <Label x:Name="lb_Patients" Content="Pacjenci" Grid.Column="1" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
+                </Grid>
                 <Grid Margin="0 5 0 5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="0 0 10 0">
-                        <ComboBox x:Name="cb_Search" VerticalAlignment="Top" Width="120" />
+                        <ComboBox x:Name="cb_Search" VerticalAlignment="Top" Margin="28,0,10,0" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="0 0 10 0">
-                        <Button x:Name="btn_Search" Content="Szukaj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btn_Search_Click"/>
+                    <StackPanel Grid.Column="1" Margin="0 0 5 0">
+                        <Button x:Name="btn_Search" Content="Szukaj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Search_Click"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="5 0 0 0">
+                        <Button x:Name="btn_Clear" Content="Wyczyść" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Clear_Click"/>
                     </StackPanel>
                 </Grid>
                 <Grid>
@@ -36,7 +47,7 @@
                         <Label x:Name="lbl_Department" Margin="0 5" Content="Oddział" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                         <Label x:Name="lbl_Email" Margin="0 5"  Content="Email" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                         <Label x:Name="lbl_Physician" Margin="0 5" Content="Lekarz" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
-                        <Label x:Name="lbl_Diagnosis" Margin="0 5" Content="Diagnoza" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
+                        <Label x:Name="lbl_Diagnosis" Margin="0 5 0 10" Content="Diagnoza" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="93" />
                     </StackPanel>
 
                     <!--Column2-->
@@ -45,7 +56,7 @@
                         <TextBox x:Name="tb_LastName" Margin="0 5" Grid.Row="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <TextBox x:Name="tb_Address" Margin="0 5" Grid.Row="2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <TextBox x:Name="tb_Telephone" Margin="0 5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
-                        <ComboBox x:Name="cb_Department" LostFocus="cb_Department_LostFocus" Margin="0 5" HorizontalAlignment="Left" Height="23" Text="TextBox" VerticalAlignment="Top" Width="182" />
+                        <ComboBox x:Name="cb_Department" LostFocus="Department_LostFocus" Margin="0 5" HorizontalAlignment="Left" Height="23" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <TextBox x:Name="tb_Email" Margin="0 5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <ComboBox x:Name="cb_PhysiciansList" Margin="0 5" HorizontalAlignment="Left" Height="23" Text="TextBox" VerticalAlignment="Top" Width="182" />
                         <TextBox x:Name="tb_Diagnosis" Margin="0 5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182" />
@@ -53,13 +64,14 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="31*" />
+                        <ColumnDefinition Width="18*" />
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="31*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btn_SaveChanges" Content="Zapisz" Click="btn_SaveChanges_Click" Grid.Column="0" Margin="0 5 10 0"/>
-                    <Button x:Name="btn_Delete" Content="Usuń" Click="btn_Delete_Click" Grid.Column="1" Margin="0 5 10 0"/>
-                    <Button x:Name="btn_Add" Content="Dodaj" Click="btn_Add_Click" Grid.Column="2" Margin="0 5 10 0"/>
+                    <Button x:Name="btn_SaveChanges" Content="Zapisz" Click="SaveChanges_Click" Grid.Column="0" Margin="0 5 5 0"/>
+                    <Button x:Name="btn_Delete" Content="Usuń" Click="Delete_Click" Grid.Column="1" Margin="0 5 5 0" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btn_Add" Content="Dodaj" Click="Add_Click" Grid.Column="3" Margin="0 5 0 0"/>
                 </Grid>
                 <Label x:Name="lbl_Status" Content="Status" Margin="0 10" Width="280" VerticalAlignment="Center"/>
             </StackPanel>

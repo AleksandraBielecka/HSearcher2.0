@@ -27,18 +27,18 @@ namespace HSearcher2._0
             InitializeComponent();
         }
 
-        private void btn_Pacjenci_Click(object sender, RoutedEventArgs e)
+        private void Patients_Click(object sender, RoutedEventArgs e)
         {
-            Window1 Pacjenci = new Window1();
-            Pacjenci.Show();
+            Window1 Patients = new Window1();
+            Patients.Show();
             this.Close();
         }
 
 
-        private void btn_Pracownicy_Click(object sender, RoutedEventArgs e)
+        private void Employees_Click(object sender, RoutedEventArgs e)
         {
-            Window3 Pracownicy = new Window3();
-            Pracownicy.Show();
+            Window3 Employees = new Window3();
+            Employees.Show();
             this.Close();
         }
     }

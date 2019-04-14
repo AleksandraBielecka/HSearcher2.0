@@ -28,7 +28,6 @@ namespace HSearcher2._0
         public Window3()
         {
             InitializeComponent();
-            lbl_Select.Content = "Wybierz";
             lbl_FirstName.Content = "Imię";
             lbl_LastName.Content = "Nazwisko";
             lbl_Address.Content = "Adres";
@@ -36,7 +35,8 @@ namespace HSearcher2._0
             lbl_Email.Content = "Email";
             lbl_Salary.Content = "Pensja";
             lbl_Department.Content = "Departament";
-            lbl_Status.Content = "Wyszukaj pracownika";
+            lbl_Status.Foreground = Brushes.Black;
+            lbl_Status.Content = "Wyszukaj pracownika lub dodaj nowego";
             btn_Delete.Content = "Usuń";
             btn_SaveChanges.Content = "Zapisz";
             btn_Search.Content = "Szukaj";
@@ -57,10 +57,13 @@ namespace HSearcher2._0
             tb_Email.Text = "";
             tb_Salary.Text = "";
             tb_Department.Text = "";
-
+            cb_Search.SelectedIndex = 0;
+            btn_SaveChanges.Visibility = Visibility.Hidden;
+            lbl_Status.Foreground = Brushes.Black;
+            lbl_Status.Content = "Wyszukaj pracowika lub dodaj nowego";
         }
 
-        private void btn_Search_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
             if (this.cb_Search.SelectedValue != null)
             {
@@ -115,7 +118,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_SaveChanges_Click(object sender, RoutedEventArgs e)
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsEmployees;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
@@ -162,7 +165,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_Add_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             if (tb_FirstName.Text != null && tb_LastName.Text != null)
             {
@@ -195,7 +198,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_Delete_Click(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsEmployees;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
@@ -213,13 +216,25 @@ namespace HSearcher2._0
             }
         }
 
-        private void tb_Department_LostFocus(object sender, RoutedEventArgs e)
+        private void Department_LostFocus(object sender, RoutedEventArgs e)
         {
             if (tb_Department.Text != "1" || tb_Department.Text != "2" || tb_Department.Text != "3")
             {
                 lbl_Status.Content = "Proszę wybrać poprawny numer departamentu." + "\n" + "1-Ortopedia , 2-Neurologia, 3-Kardiologia";
                 lbl_Status.Foreground = Brushes.Red;
             }
+        }
+
+        private void BackToMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow MainWindow = new MainWindow();
+            MainWindow.Show();
+            this.Close();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearTextBoxes();
         }
     }
 }

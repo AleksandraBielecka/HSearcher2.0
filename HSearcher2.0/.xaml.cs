@@ -33,6 +33,8 @@ namespace HSearcher2._0
             LastNameList();
             DepartmentList();
             PhysiciansList();
+            lbl_Status.Foreground = Brushes.Black;
+            lbl_Status.Content = "Wyszukaj pacjenta lub dodaj nowego";
         }
         #endregion
 
@@ -42,13 +44,17 @@ namespace HSearcher2._0
             tb_LastName.Text = "";
             tb_Address.Text = "";
             tb_Telephone.Text = "";
-            cb_Department.Text = "";
+            cb_Department.SelectedIndex = 0;
             tb_Email.Text = "";
-            cb_PhysiciansList.Text = "Wybierz";
+            cb_PhysiciansList.SelectedIndex = 0;
             tb_Diagnosis.Text = "";
+            cb_Search.SelectedIndex = 0;
+            btn_SaveChanges.Visibility = Visibility.Hidden;
+            lbl_Status.Foreground = Brushes.Black;
+            lbl_Status.Content = "Wyszukaj pacjenta lub dodaj nowego";
         }
 
-        private void btn_Search_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
             if (this.cb_Search.SelectedValue != null)
             {
@@ -92,6 +98,10 @@ namespace HSearcher2._0
                     btn_SaveChanges.Content = "Zaktualizuj";
                     btn_SaveChanges.Visibility = Visibility.Visible;
                     btn_Delete.IsEnabled = true;
+                    if(cb_PhysiciansList.Text == " ")
+                    {
+                        PhysiciansDepartmentNameList();
+                    }
                 }
             }
             else
@@ -105,7 +115,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_SaveChanges_Click(object sender, RoutedEventArgs e)
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
@@ -227,7 +237,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_Delete_Click(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
@@ -245,7 +255,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void btn_Add_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             if (tb_FirstName.Text != null && tb_LastName.Text != null)
             {
@@ -278,7 +288,7 @@ namespace HSearcher2._0
             }
         }
 
-        private void cb_Department_LostFocus(object sender, RoutedEventArgs e)
+        private void Department_LostFocus(object sender, RoutedEventArgs e)
         {
             if (cb_Department.SelectedIndex != 0)
             {
@@ -288,6 +298,18 @@ namespace HSearcher2._0
             {
                 PhysiciansList();
             }
+        }
+
+        private void BackToMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow MainWindow = new MainWindow();
+            MainWindow.Show();
+            this.Close();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearTextBoxes();
         }
     }
 }

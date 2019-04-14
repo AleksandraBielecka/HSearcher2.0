@@ -7,27 +7,34 @@
         mc:Ignorable="d"
         Title="Window3" Height="440" Width="400">
     <Grid Background ="DarkGray">
-        <TextBlock x:Name="lb_choose" Text="Pracownicy" FontWeight="Bold" FontSize="30" Margin="108,-9,118,333" />
-        <TextBox x:Name="tb_FirstName" HorizontalAlignment="Left" Height="23" Margin="160,94,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <Label x:Name="lbl_FirstName" Content="Label" HorizontalAlignment="Left" Margin="62,95,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label x:Name="lbl_LastName" Content="Label" HorizontalAlignment="Left" Margin="62,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.737,-0.769" Width="92"/>
-        <Label x:Name="lbl_Address" Content="Label" HorizontalAlignment="Left" Margin="62,157,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label x:Name="lbl_Telephone" Content="Label" HorizontalAlignment="Left" Margin="62,188,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label x:Name="lbl_Email" Content="Label" HorizontalAlignment="Left" Margin="62,219,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label x:Name="lbl_Salary" Content="Label" HorizontalAlignment="Left" Margin="62,250,0,0" VerticalAlignment="Top" Width="93"/>
-        <Label x:Name="lbl_Department" Content="Label" HorizontalAlignment="Left" Margin="62,281,0,0" VerticalAlignment="Top" Width="93"/>
-        <TextBox x:Name="tb_LastName" HorizontalAlignment="Left" Height="23" Margin="160,129,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"  Width="182"/>
-        <TextBox x:Name="tb_Address" HorizontalAlignment="Left" Height="23" Margin="160,160,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <TextBox x:Name="tb_Telephone" HorizontalAlignment="Left" Height="23" Margin="160,189,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <TextBox x:Name="tb_Email" HorizontalAlignment="Left" Height="23" Margin="160,222,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <TextBox x:Name="tb_Salary" HorizontalAlignment="Left" Height="23" Margin="160,253,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <TextBox x:Name="tb_Department" LostFocus="tb_Department_LostFocus" HorizontalAlignment="Left" Height="23" Margin="160,284,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
-        <Button x:Name="btn_Search" Content="Button" HorizontalAlignment="Left" Margin="279,44,0,0" VerticalAlignment="Top" Width="75" Click="btn_Search_Click"/>
-        <Button x:Name="btn_SaveChanges" Content="Button" HorizontalAlignment="Left" Margin="46,330,0,0" VerticalAlignment="Top" Width="76" Click="btn_SaveChanges_Click"/>
-        <Label x:Name="lbl_Select" Content="Label" HorizontalAlignment="Left" Margin="46,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.513,1.154"/>
-        <Label x:Name="lbl_Status" Content="Label" Margin="22,350,0,0" RenderTransformOrigin="-0.118,0.692" MinWidth="360" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="30"/>
-        <Button x:Name="btn_Delete" Content="Button" HorizontalAlignment="Left" Margin="278,330,0,0" VerticalAlignment="Top" Width="76" Click="btn_Delete_Click"/>
-        <ComboBox x:Name="cb_Search" HorizontalAlignment="Left" Margin="116,44,0,0" VerticalAlignment="Top" Width="120" />
-        <Button x:Name="btn_Add" Content="Button" HorizontalAlignment="Left" Margin="160,330,0,0" VerticalAlignment="Top" Width="76" Click="btn_Add_Click"/>
+        <Grid Margin="1,0,-1,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BackToMainWindow" Content="Wstecz" Click="BackToMainWindow_Click" Grid.Column="0" Margin="10 15 0 360"/>
+            <Label x:Name="lb_Employees" Content="Pracownicy" Grid.Column="1" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
+        </Grid>
+        <TextBox x:Name="tb_FirstName" HorizontalAlignment="Left" Height="23" Margin="158,104,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <Label x:Name="lbl_FirstName" Content="Label" HorizontalAlignment="Left" Margin="60,105,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbl_LastName" Content="Label" HorizontalAlignment="Left" Margin="60,136,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.737,-0.769" Width="92"/>
+        <Label x:Name="lbl_Address" Content="Label" HorizontalAlignment="Left" Margin="60,167,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbl_Telephone" Content="Label" HorizontalAlignment="Left" Margin="60,198,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbl_Email" Content="Label" HorizontalAlignment="Left" Margin="60,229,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbl_Salary" Content="Label" HorizontalAlignment="Left" Margin="60,260,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbl_Department" Content="Label" HorizontalAlignment="Left" Margin="60,291,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBox x:Name="tb_LastName" HorizontalAlignment="Left" Height="23" Margin="158,139,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"  Width="182"/>
+        <TextBox x:Name="tb_Address" HorizontalAlignment="Left" Height="23" Margin="158,170,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <TextBox x:Name="tb_Telephone" HorizontalAlignment="Left" Height="23" Margin="158,199,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <TextBox x:Name="tb_Email" HorizontalAlignment="Left" Height="23" Margin="158,232,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <TextBox x:Name="tb_Salary" HorizontalAlignment="Left" Height="23" Margin="158,263,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <TextBox x:Name="tb_Department" LostFocus="Department_LostFocus" HorizontalAlignment="Left" Height="23" Margin="158,294,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="182"/>
+        <Button x:Name="btn_Search" Content="Button" HorizontalAlignment="Left" Margin="196,61,0,0" VerticalAlignment="Top" Width="75" Click="Search_Click"/>
+        <Button x:Name="btn_Clear" Content="Wyczyść" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Clear_Click" Margin="294,61,0,0"/>
+        <Button x:Name="btn_SaveChanges" Content="Button" HorizontalAlignment="Left" Margin="44,340,0,0" VerticalAlignment="Top" Width="76" Click="SaveChanges_Click"/>
+        <Label x:Name="lbl_Status" Content="Label" Margin="18,367,0,0" RenderTransformOrigin="-0.118,0.692" MinWidth="360" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="30"/>
+        <Button x:Name="btn_Delete" Content="Button" HorizontalAlignment="Left" Margin="276,340,0,0" VerticalAlignment="Top" Width="76" Click="Delete_Click"/>
+        <ComboBox x:Name="cb_Search" HorizontalAlignment="Left" Margin="42,59,0,0" VerticalAlignment="Top" Width="136" />
+        <Button x:Name="btn_Add" Content="Button" HorizontalAlignment="Left" Margin="158,340,0,0" VerticalAlignment="Top" Width="76" Click="Add_Click"/>
     </Grid>
 </Window>
