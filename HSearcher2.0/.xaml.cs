@@ -122,7 +122,7 @@ namespace HSearcher2._0
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
 
-            DateTime.TryParseExact(dp_Date.Text, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime dateof);
+            DateTime.TryParseExact(dp_Date.Text, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime dateOfAdmission);
             string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
             using (SqlConnection con = new SqlConnection(CS))
             {
@@ -132,7 +132,7 @@ namespace HSearcher2._0
                     + "', Department = '" + cb_Department.Text + "', Email = '"
                     + tb_Email.Text + "', Physician = '" + cb_PhysiciansList.Text
                     + "', Diagnosis = '" + tb_Diagnosis.Text + "', Date = '"
-                    + dateof.ToString("yyyy-MM-dd") + "' WHERE ID = " + _currentEmployeeId.ToString(), con);
+                    + dateOfAdmission.ToString("yyyy-MM-dd") + "' WHERE ID = " + _currentEmployeeId.ToString(), con);
                 con.Open();
                 int TotalRowsAffected = cmd.ExecuteNonQuery();
 
@@ -269,28 +269,37 @@ namespace HSearcher2._0
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
-            using (SqlConnection con = new SqlConnection(CS))
+            if (!string.IsNullOrWhiteSpace(tb_FirstName.Text) && !string.IsNullOrWhiteSpace(tb_LastName.Text))
             {
-                SqlCommand cmd = new SqlCommand("procPatientsInsert", con);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                DateTime.TryParseExact(dp_Date.Text, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime dateOfAdmission);
+                string CS = @"data source=DESKTOP-E9EAAOK\SQLEXPRESS01;database=HospitalsPatients;integrated security=SSPI";
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("procPatientsInsert", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@FirstName", tb_FirstName.Text);
-                cmd.Parameters.AddWithValue("@LastName", tb_LastName.Text);
-                cmd.Parameters.AddWithValue("@Address", tb_Address.Text);
-                cmd.Parameters.AddWithValue("@Telephone", tb_Telephone.Text);
-                cmd.Parameters.AddWithValue("@Department", cb_Department.Text);
-                cmd.Parameters.AddWithValue("@Email", tb_Email.Text);
-                cmd.Parameters.AddWithValue("@Physician", cb_PhysiciansList.Text);
-                cmd.Parameters.AddWithValue("@Diagnosis", tb_Diagnosis.Text);
-                cmd.Parameters.AddWithValue("@Date", dp_Date.Text);
-                
-                con.Open();
-                cmd.ExecuteNonQuery();
-                lbl_Status.Content = "Dodano nowego pacjenta";
-                lbl_Status.Foreground = Brushes.Green;
-                LastNameList();
+                    cmd.Parameters.AddWithValue("@FirstName", tb_FirstName.Text);
+                    cmd.Parameters.AddWithValue("@LastName", tb_LastName.Text);
+                    cmd.Parameters.AddWithValue("@Address", tb_Address.Text);
+                    cmd.Parameters.AddWithValue("@Telephone", tb_Telephone.Text);
+                    cmd.Parameters.AddWithValue("@Department", cb_Department.Text);
+                    cmd.Parameters.AddWithValue("@Email", tb_Email.Text);
+                    cmd.Parameters.AddWithValue("@Physician", cb_PhysiciansList.Text);
+                    cmd.Parameters.AddWithValue("@Diagnosis", tb_Diagnosis.Text);
+                    cmd.Parameters.AddWithValue("@Date", dateOfAdmission.ToString("yyyy-MM-dd"));
 
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    lbl_Status.Content = "Dodano nowego pacjenta";
+                    lbl_Status.Foreground = Brushes.Green;
+                    LastNameList();
+
+                }
+            }
+            else
+            {
+                lbl_Status.Content = "Proszę wpisać imię i nazwisko pacjenta";
+                lbl_Status.Foreground = Brushes.Red;
             }
         }
 
